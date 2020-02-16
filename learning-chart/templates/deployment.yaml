@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{.Values.namespace}}
+  clusterName: minikube
+  labels:
+    run: {{.Values.namespace}}
+  name: learning-d
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: {{.Values.namespace}}
+  strategy: {}
+  template:
+    metadata:
+      clusterName: minikube
+      labels:
+        run: {{.Values.namespace}}
+    spec:
+      containers:
+        - image: httpd:2.4
+          name: learning-c
+          volumeMounts:
+          - name: file-volume
+            mountPath: /etc/kube
+      volumes:
+        - name: file-volume
+          persistentVolumeClaim:
+            claimName: learning-pv-claim
