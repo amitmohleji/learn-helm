@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xlr-d
+  namespace: xl-demo
+  labels:
+    app: xlr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xlr
+  template:
+    metadata:
+      labels:
+        app: xlr
+    spec:
+      containers:
+      - image: xebialabsunsupported/docker-xlr:9.5.2
+        name: xlr
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xlr
+  namespace: xl-demo
+spec:
+  selector: 
+    app: xlr
+  type: ClusterIP
+  ports:
+      - port: 5516
+
