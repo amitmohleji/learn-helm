@@ -14,6 +14,19 @@ helm install xl-demo-0.1.0.tgz
 
 ### Setting up
 
+#### Minikube requirements for hosting stack
+
+At least 4 CPUS and 10Gigs Memory.  
+```
+mk config view
+- cpus: 8
+- dashboard: true
+- ingress: true
+- memory: 10240
+- vm-driver: hyperkit
+
+```
+
 #### Create a mount to a folder that carries the license
 /Users/amitmohleji/minikube-mount contains a folder xl-licenses that has licenses for XLD and XLR
 
