@@ -7,9 +7,23 @@ apiVersion: v1
 kind : PersistentVolume
 metadata:
   namespace: xl-demo
-  name: xl-demo-volume
+  name: xlr
 spec:
-  storageClassName: standard
+  storageClassName: xlr
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 2Gi
+  hostPath:
+    path: "/home/mount/xl-licenses/"
+---
+apiVersion: v1
+kind : PersistentVolume
+metadata:
+  namespace: xl-demo
+  name: xld
+spec:
+  storageClassName: xld
   accessModes:
     - ReadWriteOnce
   capacity:

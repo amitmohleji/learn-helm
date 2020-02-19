@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jboss-d
+  namespace: xl-demo
+  labels:
+    app: jboss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jboss
+  template:
+    metadata:
+      labels:
+        app: jboss
+    spec:
+      containers:
+      - image: xebialabsunsupported/xl-docker-demo-jboss:9.0.2.Final
+        name: jboss
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jboss
+  namespace: xl-demo
+spec:
+  selector: 
+    app: jboss
+  type: ClusterIP
+  ports:
+      - port: 8880
+        targetPort: 8080
+        name: web
+      - port: 9990
+        name: admin

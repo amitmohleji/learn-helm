@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-d
+  namespace: xl-demo
+  labels:
+    app: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      containers:
+      - image: xebialabsunsupported/docker-jenkins:2.189-alpine
+        name: jenkins
+        env:
+          - name: artifactory_password
+            value: admin
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  namespace: xl-demo
+spec:
+  selector: 
+    app: jenkins
+  type: ClusterIP
+  ports:
+      - port: 8080

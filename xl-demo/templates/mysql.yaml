@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-d
+  namespace: xl-demo
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - image: xebialabsunsupported/xl-docker-demo-mysql:5.7.17
+        name: mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: xl-demo
+spec:
+  selector: 
+    app: mysql
+  type: ClusterIP
+  ports:
+      - port: 3306

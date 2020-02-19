@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: xl-demo
+  name: xlr-pv-claim
+spec:
+  storageClassName: xlr
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -22,6 +35,15 @@ spec:
           requests:
             memory: "2Gi"
             cpu: "1"
+        volumeMounts:
+        - name: file-volume
+          mountPath: /opt/xebialabs/xl-release-server/conf/xl-release-license.lic
+          subPath: ./xl-release-license.lic
+          readOnly: true
+      volumes:
+      - name: file-volume
+        persistentVolumeClaim:
+          claimName: xlr-pv-claim
 ---
 apiVersion: v1
 kind: Service

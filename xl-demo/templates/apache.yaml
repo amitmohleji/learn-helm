@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache-d
+  namespace: xl-demo
+  labels:
+    app: apache
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache
+    spec:
+      containers:
+      - image: xebialabsunsupported/xl-docker-demo-apache:2.4.33-alpine
+        name: apache
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apache
+  namespace: xl-demo
+spec:
+  selector: 
+    app: apache
+  type: ClusterIP
+  ports:
+      - port: 80

@@ -4,7 +4,7 @@ metadata:
   namespace: xl-demo
   name: xld-pv-claim
 spec:
-  storageClassName: standard
+  storageClassName: xld
   accessModes:
     - ReadWriteOnce
   resources:
@@ -39,6 +39,7 @@ spec:
         - name: file-volume
           mountPath: /opt/xebialabs/xl-deploy-server/conf/deployit-license.lic
           subPath: ./deployit-license.lic
+          readOnly: true
       volumes:
       - name: file-volume
         persistentVolumeClaim:

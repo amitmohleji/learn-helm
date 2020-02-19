@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: xl-demo
+  name: xl-demo-in
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: jenkins.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: jenkins
+            servicePort: 8080
+           path:  /
+    - host: xld.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: xld
+            servicePort: 4516
+           path:  /
+    - host: xlr.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: xlr
+            servicePort: 5516
+           path:  /
+    - host: gogs.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: gogs
+            servicePort: 3000
+           path:  /
+    - host: art.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: artifactory
+            servicePort: 3000
+           path:  /
+    - host: jboss.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: jboss
+            servicePort: 8880
+           path:  /
+    - host: jadmin.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: jboss
+            servicePort: 9990
+           path:  /
+    - host: apache.xl 
+      http:
+       paths:
+         - backend:
+            serviceName: apache
+            servicePort: 80
+           path:  /
